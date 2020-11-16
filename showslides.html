@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      * {
+        box-sizing: border-box;
+        background-color: darksalmon;
+      }
+      .mySlides {
+        display: none;
+        padding: 3%;
+        text-align: center;
+      }
+      img {
+        /* vertical-align: middle; */
+        height: 36vh;
+        /* display: block; */
+      }
+
+      /* Slideshow container */
+      .slideshow-container {
+        max-width: 1000px;
+        position: relative;
+        margin: auto;
+        text-align: center;
+      }
+
+      /* Next & previous buttons */
+      .prev,
+      .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        padding: 16px;
+        margin-top: -22px;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        transition: 0.6s ease;
+        border-radius: 0 3px 3px 0;
+        user-select: none;
+      }
+
+      /* Position the "next button" to the right */
+      .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+      }
+      .prev {
+        left: 0;
+      }
+
+      /* On hover, add a grey background color */
+      .prev:hover,
+      .next:hover {
+        background-color: #f1f1f1;
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <h2 style="text-align: center">Multiple Slideshows</h2>
+
+    <div class="slideshow-container">
+      <div class="mySlides">
+        <img
+          src="https://via.placeholder.com/210x340?text=image1"
+          style="width: 21%"
+        />
+      </div>
+
+      <div class="mySlides">
+        <img
+          src="https://via.placeholder.com/210x340?text=image2"
+          style="width: 21%"
+        />
+      </div>
+
+      <div class="mySlides">
+        <img
+          src="https://via.placeholder.com/210x340?text=image3"
+          style="width: 21%"
+        />
+      </div>
+      <div class="mySlides">
+        <img
+          src="https://via.placeholder.com/210x340?text=image4"
+          style="width: 21%"
+        />
+      </div>
+
+      <div class="mySlides">
+        <img
+          src="https://via.placeholder.com/210x340?text=image5"
+          style="width: 21%"
+        />
+      </div>
+
+      <div class="mySlides">
+        <img
+          src="https://via.placeholder.com/210x340?text=image6"
+          style="width: 21%"
+        />
+      </div>
+
+      <a class="prev" onclick="toRight()">&#10094;</a>
+      <a class="next" onclick="toLeft()">&#10095;</a>
+    </div>
+    <script>
+      var slideIndex = [1, 2, 3]; //default shown slides
+      let ful = [1, 2, 3, 4, 5, 6]; //store all the slides
+      showSlides(slideIndex);
+
+      function toLeft() {
+        //push bigger number to the end of the array, shift the first number
+        slideIndex.shift();
+        let len = slideIndex.length;
+        if (slideIndex[len - 1] + 1 > ful.length) {
+          slideIndex.push(1); //if number is more than 6, push 1 instead
+        } else {
+          slideIndex.push(slideIndex[len - 1] + 1); //otherwise push n+1
+        }
+        showSlides(slideIndex);
+      }
+
+      function toRight() {
+        //insert smaller number to the front, pop the last one in arr
+        slideIndex.pop();
+        let len = slideIndex.length;
+        if (slideIndex[0] - 1 < 1) {
+          slideIndex.unshift(ful.length); //if number is smaller than 1, insert the length of all the slides, here is 6
+        } else {
+          slideIndex.unshift(slideIndex[0] - 1); //otherwise substract 1 of the current first number in the array and insert to the front of the array
+        }
+        showSlides(slideIndex);
+      }
+      function showSlides(arr) {
+        var x = document.getElementsByClassName("mySlides");
+        let rest = ful.filter((i) => arr.indexOf(i) === -1); //get the array of these slides that should not be shown
+
+        for (let i = 0; i < rest.length; i++) {
+          x[rest[i] - 1].style.display = "none";
+        }
+
+        for (let i = 0; i < arr.length; i++) {
+          x[arr[i] - 1].style.display = "inline"; //don't forget to substract 1, because length is always last index +1!
+        }
+      }
+    </script>
+  </body>
+</html>
+
